@@ -1,0 +1,140 @@
+*{
+  margin: 0;
+  padding:0;
+  text-decoration:none;
+  list-style-type: none;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+  font-family: 'Inter', sans-serif;
+}
+:root{
+  --main-color:#20283e;
+  --span-color:#d32d41;
+  --header-color:#003f5c;
+  --icon-color: beige;
+}
+.container{
+  padding: 0.5rem 1rem;
+  width:100%;
+ min-height:100vh;
+}
+
+.flex{
+  display:flex;
+}
+ img{
+  width:30px;
+  height:30px;
+  object-fit: cover;
+  user-select: none;
+  border-radius: 50%;
+}
+h2{
+font-size:1.7rem;
+font-weight: 700;
+color:var(--span-color);
+}
+h3{
+  font-size:1.4rem;
+  font-weight:600;
+  color:#022739;
+  }
+
+  h4{
+    font-size: 1rem;
+  }
+
+input,select{
+  outline: none;
+  background:transparent;
+  border-radius:3px;
+  font-size: 16px;
+  border:1px solid white;
+  color:white;
+  width: 100%;
+}
+input::placeholder{
+  color: grey;
+}
+ input:focus{
+    color:white;
+}
+
+button{
+  outline:none;
+  border: none;
+  padding:0.6rem 0.7rem;
+  font-size:16px;
+  border-radius:10px;
+  border:1px solid #d32d41;
+  background:var(--bgcolor);
+  cursor:pointer;
+  position: relative;
+  z-index:1;
+}
+
+button.btn1{
+  color:red;
+  
+}
+button.btn2{
+  color:white;
+
+}
+button.btn1:hover{
+  color:white;
+}
+button.btn2:hover{
+  color:red;
+}
+
+button::before{
+  content:"";
+  position:absolute;
+  width:100%;
+  height:100%;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  transform-origin:left;
+  transform: scaleX(1);
+  border-radius:10px;
+  transition:2s ease;
+}
+button.btn1::before{
+  background:white;
+}
+button.btn2::before{
+  background: red;
+}
+
+button:hover::before{
+  transform-origin:right;
+  transform: scaleX(0);
+  transition:2s ease;
+}
+
+
+@media screen and (max-width:769px) { 
+   h3{
+      font-size:1.2rem;
+      }
+    
+      h4{
+        font-size: 1rem;
+      }
+}
+
+@media screen and (max-width:450px) { 
+     
+  h2{
+   font-size:1.3rem;
+   }
+   h3{
+     font-size:1.1rem;
+     }
+     .container{
+      padding: 0.5rem 0.4rem;
+     
+    }
+}

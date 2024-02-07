@@ -1,0 +1,143 @@
+.Navbar{
+    width:calc(100% - 250px);
+    position: fixed;
+    top:0;
+    left:250px;
+    background:var(--main-color);
+    z-index:100;
+    border-bottom:1px solid  rgb(79, 4, 11);
+    box-shadow:2px 2px 6px 2px rgba(0,0,0, 0.4);
+}
+.Navbar.active{
+    width:calc(100% - 50px);
+    left:50px;
+}
+.nav-wrapper{
+    align-items:center;
+    justify-content: space-between;
+    padding:10px 1.5rem;
+}
+.input-wrapper{
+    align-items: center;
+    cursor:pointer;
+}
+.search-wrapper{
+    align-items:center;
+    border:1px solid white;
+    padding: 8px 15px;
+    margin-left: 20px;
+    width:400px;
+}
+.search-wrapper input{
+    border: none;
+    background:transparent;
+    color:white;
+}
+
+.search-wrapper .searchBtn{
+margin-left:10px;
+color:white;
+}
+.menu{
+    font-size:18px;
+    color:white;
+}
+.nav-icons{
+    /* cursor:pointer; */
+    justify-content: space-between
+}
+.nav-icon{
+    /* margin-right:; */
+    cursor:pointer;
+    font-size:18px;
+    position:relative;
+    color:beige;
+}
+.nav-icons span{
+    position: absolute;
+    top:-8px;
+    left:7px;
+    width:15px;
+    height:15px;
+    color:var(--icon-color);
+    background:var(--span-color);
+    padding:2px;
+    border-radius:50%;
+    z-index:1;
+    font-size: 10px;
+    align-items: center;
+    justify-content:center;
+}
+.author{
+    margin-left:0.8rem;
+}
+.author img{
+    width:25px;
+    height:25px;
+}
+.name-profile{
+    margin-left:0.8rem;
+    color:var(--icon-color);
+    font-style:italic;
+
+}
+
+
+
+
+@media screen and (max-width:960px) {
+    .Navbar{
+        width:calc(100% - 180px);
+        left:180px;
+    }
+}
+
+@media screen and (max-width:850px) {
+    .Navbar{
+        width:100%;
+        left:0px;
+        z-index:100;
+    }
+    .Navbar.active{
+        width:100%;
+        left:0;
+    }
+}
+
+@media screen and (max-width:769px) {
+   
+    .nav-wrapper{
+        padding:10px 1rem;
+    }
+.search-wrapper{
+    padding: 8px 12px;
+    margin-left: 15px;
+    width:200px;
+}
+.search-wrapper{
+    width:300px;
+}
+.menu{
+    font-size:15px;
+}
+.nav-icon{
+    font-size:15px;
+}
+}
+@media screen and (max-width:600px) {
+    
+    .name-profile{
+        display: none;
+    }
+}
+@media screen and (max-width:450px) {
+    .search-wrapper{
+        margin-left:6px;
+        color:white;
+        }
+       
+    .search-wrapper{
+        width:200px;
+    }
+   
+}
