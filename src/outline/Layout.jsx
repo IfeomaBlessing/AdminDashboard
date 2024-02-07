@@ -22,7 +22,7 @@ const Layout = () => {
 
  const closeSidebarOnMobile = () => {
   // Check if the device width is less than 850px 
-  if (window.innerWidth < 850) {
+  if (window.innerWidth < 960) {
     toggleSidebar();
   }
 };

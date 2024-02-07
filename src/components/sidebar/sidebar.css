@@ -67,12 +67,6 @@ width: 100%;
 /*---------------- MOBILE RESPONSIVENESS--------------  */
 @media screen and (max-width:960px) {
     .sidebar {
-        width: 180px;
-    }
-}
-
-@media screen and (max-width:850px){
-    .sidebar {
         width:250px;
         left:-250px;
         z-index: 100;
@@ -88,6 +82,8 @@ width: 100%;
     display:block;
 }
 }
+
+
 @media screen and (max-width:769px) {
   
    
