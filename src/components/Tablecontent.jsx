@@ -7,14 +7,14 @@ import { faEdit,faTrash } from '@fortawesome/free-solid-svg-icons'
 const Tablecontent = ({employeeList, editEmployee,deleteEmployee,modal}) => {
 
   const disableEdit = (id) => {
-    // if modal is open, then disable the edit button
+    // only allow editing if the modal is not open
     if (!modal) {
       editEmployee(id);
     }
   };
 
-  const disbaleDelete = (id) => {
-     // if modal is open, then disable the delete button
+  const disableDelete = (id) => {
+     // only allow delete if modal is not open
     if (!modal) {
       deleteEmployee(id);
     }
@@ -25,7 +25,7 @@ const Tablecontent = ({employeeList, editEmployee,deleteEmployee,modal}) => {
     <>
   {employeeList.map((x,id)=>{
                return (
-  <tbody key={id} >
+  <tbody key={x.id} >
   <tr >
   <td className=" flex person-details">
   {x.pix  ? (
@@ -45,8 +45,8 @@ const Tablecontent = ({employeeList, editEmployee,deleteEmployee,modal}) => {
                <td>
              
                <div className="btn">
-               <FontAwesomeIcon icon={faEdit} style={{color:"green", marginRight:"5px"}} onClick={()=>disableEdit(id)} />
-                <FontAwesomeIcon icon={faTrash} style={{color:"red"}} onClick={()=>disbaleDelete(id)}/>
+               <FontAwesomeIcon icon={faEdit} style={{color:"green", marginRight:"5px"}} onClick={()=>disableEdit(x.id)} />
+                <FontAwesomeIcon icon={faTrash} style={{color:"red"}} onClick={()=>disableDelete(x.id)}/>
                </div>
                </td>
                </tr>

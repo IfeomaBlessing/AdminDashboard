@@ -3,53 +3,60 @@ import './employees.css'
 import Modal from './Modal'
 import {useEffect, useState}from 'react';
 import Tablecontent from '../../components/Tablecontent';
+import axios from 'axios';
 
 
 const Employees = () => {
   const [modal, setModal] =useState(false)
   const [edit, setEdit] =useState(null)
-
-  //GET VALUES OF LOCAL STORAGE
-const savedList = JSON.parse(localStorage.getItem("employeeList")) || []
+   const  [employeeList, setEmployeeList] =useState([])
 
 
-// employeeList array of object
- const  [employeeList, setEmployeeList] =useState(() => {
-  const listFromLocalStorage = savedList;
-  if (listFromLocalStorage.length > 0) {
-    return listFromLocalStorage;
-  } else {
-    // Append default objects to the list
-    return [
-      {pix:"",inputName: "Chi", inputEmail: "ify@gmail.com", inputDept: "sales", inputStatus: 'Active' },
-      {pix:"",inputName: "Oyin", inputEmail: "oyeine@gmail.com", inputDept: "sales", inputStatus: 'Active' },
-      {pix:"",inputName: "Steve", inputEmail: "steve@gmail.com", inputDept: "sales", inputStatus: 'Active' },
-    ];
-  }
-});
+   useEffect(()=>{
+     const fetchEmployees = async ()=>{
+     try{
+       const response = await axios.get('http://localhost:8000/employees')
+        // console.log(response)
+          setEmployeeList(response.data);
+     }
+     catch (error){
+       console.error('error fetching Employees', error)
+     }
+     }
+     fetchEmployees();
+   },[])
+
+  
 
 //  TO ADD NEW LIST 
- const addEmployee =(data)=>{
-  setEmployeeList([
-    ...employeeList,{...data, key: Date.now()} ])
-   
+const addEmployee = async (newData) => {
+  try {
+    const response = await axios.post("http://localhost:8000/employees", newData)
+
+    // Update state with the new record returned from backend
+    setEmployeeList(prev => [...prev, response.data])
+  } catch (error) {
+    console.error("Error adding employee:", error)
+  }
+}
+
+
+
+  const deleteEmployee = async(id) =>{
+    try {
+      await axios.delete(`http://localhost:8000/employees/${id}`)
+      setEmployeeList (prev=>prev.filter(emp =>emp.id !== id));
+    } catch (error) {
+      console.error('delete employee data:', error)
+    }
   }
 
-  // TO DELETE DATA
-  const deleteEmployee =(targetValue)=>{
-    const updatedEmployee = employeeList.filter((_, id)=> id!== targetValue )
-    setEmployeeList(updatedEmployee)
-  }
-
-  const editEmployee =(id)=>{
-         setEdit(id)
+  const editEmployee =(employeeId)=>{
+         setEdit(employeeId)
          setModal(true)
   }
 
-  // SAVE DATA TO LOCAL STORAGE
-  useEffect(()=>{
-    localStorage.setItem("employeeList",JSON.stringify(employeeList))
-},[employeeList]);
+
 
   return (
 

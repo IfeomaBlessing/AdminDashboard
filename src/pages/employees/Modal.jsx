@@ -2,15 +2,19 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {useState}from 'react';
 import profile from "../../assets/avatar.png"
+import axios  from 'axios';
 
 const Modal = ({addEmployee, closeModal,edit,setEmployeeList,employeeList}) => {
 
+  const employeeToEdit = edit !== null ? employeeList.find(emp => emp.id === edit) : null;
+
 // input field states
- const [inputStatus, setInputStatus] = useState(edit !== null ? employeeList[edit].inputStatus:"");
- const [inputName, setInputName] = useState(edit !== null ? employeeList[edit].inputName:"");
- const [inputEmail, setInputEmail] = useState(edit !== null ? employeeList[edit].inputEmail:"");
- const [inputDept, setInputDept] = useState(edit !== null ? employeeList[edit].inputDept:"");
- const [pix, setPix] = useState(edit !== null ? employeeList[edit].pix:null);
+
+ const [inputStatus, setInputStatus] = useState(employeeToEdit ? employeeToEdit.inputStatus : "");
+const [inputName, setInputName] = useState(employeeToEdit ? employeeToEdit.inputName : "");
+const [inputEmail, setInputEmail] = useState(employeeToEdit ? employeeToEdit.inputEmail : "");
+const [inputDept, setInputDept] = useState(employeeToEdit ? employeeToEdit.inputDept : "");
+const [pix, setPix] = useState(employeeToEdit ? employeeToEdit.pix : null);
  
   // to convert blob to base64 string
  const handleImage =(e)=>{
@@ -40,19 +44,35 @@ else{
 }
 }
 
- const handleSubmit =(e)=>{
+ const handleSubmit = async (e)=>{
+   const newEmployee = {
+    pix,
+    inputName,
+    inputEmail,
+    inputDept,
+    inputStatus
+  };
   e.preventDefault();
+
   if (!validateData()) return;
  
   // if it is not an edit, enter new data
-  if (edit === null){addEmployee({inputStatus,inputName,inputEmail,inputDept,pix})}
+  if (edit === null){
+   const response = await axios.post ("http://localhost:8000/employees",newEmployee)
+      addEmployee(response.data);
+  }
   
   //if it is an edit, update the editted data
   else{
-    setEmployeeList((prevList)=>prevList.map((currentEmployee, id)=> id ===edit ?
-   {...currentEmployee,inputStatus, inputName,inputEmail,inputDept,pix} : currentEmployee
-    ))
+  const response = await axios.put(`http://localhost:8000/employees/${edit}`,newEmployee );
+
+    setEmployeeList((prevList) => prevList.map((currentEmployee) =>
+     currentEmployee.id === edit ? response.data : currentEmployee
+    )
+  );
   }
+
+
   // RESET FORM FIELDS
   setInputName("");
   setInputDept("");
