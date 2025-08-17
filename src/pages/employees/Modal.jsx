@@ -55,16 +55,20 @@ else{
   e.preventDefault();
 
   if (!validateData()) return;
+
+   const API_URL = process.env.REACT_APP_API_URL;
  
   // if it is not an edit, enter new data
   if (edit === null){
-   const response = await axios.post ("http://localhost:8000/employees",newEmployee)
+   
+   const response = await axios.post (`${API_URL}/employees/`,newEmployee)
       addEmployee(response.data);
   }
   
   //if it is an edit, update the editted data
   else{
-  const response = await axios.put(`http://localhost:8000/employees/${edit}`,newEmployee );
+const response = await axios.put(`${API_URL}/employees/${edit}`, newEmployee);
+
 
     setEmployeeList((prevList) => prevList.map((currentEmployee) =>
      currentEmployee.id === edit ? response.data : currentEmployee
