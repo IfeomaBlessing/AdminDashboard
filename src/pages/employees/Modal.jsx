@@ -61,7 +61,7 @@ else{
   // if it is not an edit, enter new data
   if (edit === null){
    
-   const response = await axios.post (`${API_URL}/employees/`,newEmployee)
+   const response = await axios.post (`${API_URL}/employees`,newEmployee)
       addEmployee(response.data);
   }
   

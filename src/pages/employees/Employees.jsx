@@ -11,11 +11,13 @@ const Employees = () => {
   const [edit, setEdit] =useState(null)
    const  [employeeList, setEmployeeList] =useState([])
 
+  const API_URL = process.env.REACT_APP_API_URL;
 
    useEffect(()=>{
      const fetchEmployees = async ()=>{
+        
      try{
-       const response = await axios.get('http://localhost:8000/employees')
+       const response = await axios.get(`${API_URL}/employees`)
         // console.log(response)
           setEmployeeList(response.data);
      }
@@ -30,8 +32,10 @@ const Employees = () => {
 
 //  TO ADD NEW LIST 
 const addEmployee = async (newData) => {
+  
   try {
-    const response = await axios.post("http://localhost:8000/employees", newData)
+       const response = await axios.post (`${API_URL}/employees`,newData)
+    
 
     // Update state with the new record returned from backend
     setEmployeeList(prev => [...prev, response.data])
@@ -43,8 +47,10 @@ const addEmployee = async (newData) => {
 
 
   const deleteEmployee = async(id) =>{
+
     try {
-      await axios.delete(`http://localhost:8000/employees/${id}`)
+          
+    await axios.delete(`${API_URL}/employees/${id}`);
       setEmployeeList (prev=>prev.filter(emp =>emp.id !== id));
     } catch (error) {
       console.error('delete employee data:', error)
