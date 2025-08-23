@@ -11,7 +11,7 @@ const Employees = () => {
   const [edit, setEdit] =useState(null)
    const  [employeeList, setEmployeeList] =useState([])
 
-  const API_URL = process.env.REACT_APP_API_URL;
+const API_URL = import.meta.env.VITE_API_URL;
 
    useEffect(()=>{
      const fetchEmployees = async ()=>{
